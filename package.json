@@ -15,7 +15,8 @@
     "react-native": "0.69.4",
     "react-native-google-places-autocomplete": "^2.4.1",
     "react-native-maps": "^1.2.0",
-    "react-native-maps-directions": "^1.9.0"
+    "react-native-maps-directions": "^1.9.0",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

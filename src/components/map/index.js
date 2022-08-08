@@ -7,6 +7,8 @@ import Search from '../search';
 import Directions from '../directions';
 import { getPixelSize } from '../../utils';
 
+import { LocationBox, LocationText, LocationTimeBox, LocationTimeText, LocationTimeTextSmall } from './styles';
+
 import markerImage from "../../assets/marker.png";
 
 export default class Map extends Component {
@@ -90,8 +92,38 @@ export default class Map extends Component {
                 coordinate={destination}
                 anchor={{ x: 0, y: 0 }}
                 image={markerImage}
-                />
+                >
+                <LocationBox>
+                    <LocationText>{destination.title}</LocationText>
+                </LocationBox>
+                </Marker>
+
+                <Marker
+                coordinate={region}
+                anchor={{ x: 0, y: 0 }}
+                image={markerImage}
+            >
+                <LocationBox>
+                    <LocationText>{destination.title}</LocationText>
+                </LocationBox>
+                </Marker>
+
+                <Marker
+                coordinate={region}
+                anchor={{ x: 0, y: 0 }}
+                image={markerImage}
+            >
+                <LocationBox>
+                    <LocationTimeBox>
+                        <LocationTimeText>31</LocationTimeText>
+                        <LocationTimeTextSmall>MIN</LocationTimeTextSmall>
+                    </LocationTimeBox>
+                    <LocationText>R. Teresinha Machado</LocationText>
+                </LocationBox>
+                </Marker>
+
             </Fragment>
+
             )}
         </MapView>
 
