@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { View, Platform, PermissionsAndroid } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoding';
 
 import Search from '../search';
 import Directions from '../directions';
@@ -11,6 +12,8 @@ import { LocationBox, LocationText, LocationTimeBox, LocationTimeText, LocationT
 
 import markerImage from "../../assets/marker.png";
 
+Geocoder.init('AIzaSyAt7IFpzM0QpEv5CUSsEHN0Qd4kJg0wO0w')
+
 export default class Map extends Component {
     state = {
         region: null,
@@ -19,12 +22,15 @@ export default class Map extends Component {
 
     async componentDidMount() {
         Geolocation.getCurrentPosition(
-            ({coords: {latitude, longitude}}) => {
+            async ({coords: {latitude, longitude}}) => {
+                const response = await Geocoder.from({latitude, longitude});
+                const addres = response.results[0].formatted_address;
+                const location = addres.substring(0, addres.indexOf(','));
 
                 this.setState({
                     region: {
-                        latitude,
-                        longitude,
+                        latitude /*: -23.7084828*/,
+                        longitude /*: -46.6885376*/,
                         latitudeDelta: 0.0143,
                         longitudeDelta: 0.0134
                     }
@@ -52,7 +58,7 @@ export default class Map extends Component {
     }
 
     render() {
-        const { region, destination } = this.state;
+        const { region, destination, duration, location } = this.state;
 
         return (
         <View style={{ flex:1 }}>
@@ -78,6 +84,8 @@ export default class Map extends Component {
                 origin={region}
                 destination={destination}
                 onReady={result =>{
+                    this.setState({duration: Math.floor(result.duration)})
+
                     this.mapView.fitToCoordinates(result.coordinates), {
                         edgePadding: { 
                             right: getPixelSize(50),
@@ -115,10 +123,10 @@ export default class Map extends Component {
             >
                 <LocationBox>
                     <LocationTimeBox>
-                        <LocationTimeText>31</LocationTimeText>
+                    <LocationTimeText>{duration}</LocationTimeText>
                         <LocationTimeTextSmall>MIN</LocationTimeTextSmall>
                     </LocationTimeBox>
-                    <LocationText>R. Teresinha Machado</LocationText>
+                    <LocationText>{location}</LocationText>
                 </LocationBox>
                 </Marker>
 
