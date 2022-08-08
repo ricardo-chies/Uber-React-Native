@@ -3,6 +3,8 @@ import { View, Platform, PermissionsAndroid } from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
+import Search from '../search';
+
 export default class Map extends Component {
     state = {
         region: null
@@ -51,6 +53,7 @@ export default class Map extends Component {
             loadingEnabled={true}
         />
 
+        <Search/>
         </View>
         );
     }
