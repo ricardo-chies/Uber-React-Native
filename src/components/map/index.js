@@ -1,11 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import { View, Platform, PermissionsAndroid } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 import Search from '../search';
 import Directions from '../directions';
 import { getPixelSize } from '../../utils';
+
+import markerImage from "../../assets/marker.png";
 
 export default class Map extends Component {
     state = {
@@ -69,6 +71,7 @@ export default class Map extends Component {
             ref={el => (this.mapView = el)}
             >
             {destination && (
+                <Fragment>
                 <Directions
                 origin={region}
                 destination={destination}
@@ -83,6 +86,12 @@ export default class Map extends Component {
                     };
                 }}
             />
+            <Marker
+                coordinate={destination}
+                anchor={{ x: 0, y: 0 }}
+                image={markerImage}
+                />
+            </Fragment>
             )}
         </MapView>
 
