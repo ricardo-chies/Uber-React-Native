@@ -33,8 +33,8 @@ export default class Map extends Component {
                     region: {
                         latitude,
                         longitude,
-                        latitudeDelta: 0.0143,
-                        longitudeDelta: 0.0134
+                        latitudeDelta: 0.0922, //0.0143,
+                        longitudeDelta: 0.0421 //0.0134
                     }
                 });
             }, //sucesso
